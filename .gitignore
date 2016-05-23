@@ -1,6 +1,6 @@
 .DS_Store
-node_modules/
+.idea
 bower_components/
-build/
-release/
-.idea/
+/node_modules
+/release
+/build

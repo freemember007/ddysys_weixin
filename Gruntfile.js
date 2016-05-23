@@ -27,11 +27,11 @@ module.exports = function (grunt) {
     },
     html2js: {
       options: {
-        htmlmin: {
+        htmlmin: { //慎用,常会出错
           // collapseBooleanAttributes: true,
-          collapseWhitespace: true,
+          // collapseWhitespace: true,
           // removeAttributeQuotes: true,
-          removeComments: true,
+          // removeComments: true,
           // removeEmptyAttributes: true,
           // removeRedundantAttributes: true,
           // removeScriptTypeAttributes: true,
