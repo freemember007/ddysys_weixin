@@ -10,4 +10,4 @@
 - > npm install
 - > bower install 
 - > grunt build
-打开浏览器,访问: http://localhost:9000
+- 打开浏览器,访问: http://localhost:9000
