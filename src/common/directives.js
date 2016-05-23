@@ -7,7 +7,7 @@ angular.module('ddysys.directives')
   .directive('checkRequired', checkRequired);
 
 // checkbox的有效性
-function checkRequired() {
+function checkRequired() { 
   return {
     require: 'ngModel',
     restrict: 'A',
