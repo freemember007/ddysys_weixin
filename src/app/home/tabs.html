@@ -1,0 +1,24 @@
+<ion-view class="tabs-container" >
+
+    <!-- Single UI VIEW -->
+    <ion-nav-view ></ion-nav-view>
+
+    <!-- TABS -->
+    <div class="tabs tabs-light tabs-icon-top">
+        <a class="tab-item tab-item-positive has-badge" ui-sref="tab.home" nav-direction="none" ng-class="{ active : settings.isTab1}">
+            <span class="badge badge-assertive" ng-if="badge.home">{{badge.home}}</span>
+            <i class="icon ion-ios-home-outline"></i> 首页
+        </a>
+        <a class="tab-item tab-item-positive has-badge" ui-sref="tab.patients" nav-direction="none" ng-class="{active: settings.isTab2}">
+            <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
+            <i class="icon ion-ios-people-outline" ></i>患者
+        </a>
+        <a class="tab-item tab-item-positive" ui-sref="tab.consults" nav-direction="none" ng-class="{ active : settings.isTab3}">
+            <i class="icon ion-ios-chatboxes-outline"></i> 咨询 
+        </a>
+        <a class="tab-item tab-item-positive" ui-sref="tab.account" nav-direction="none" ng-class="{ active : settings.isTab4}">
+            <i class="icon ion-ios-person-outline" ></i> 我
+        </a>
+    </div>
+
+</ion-view>

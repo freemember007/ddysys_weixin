@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">通话时间</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="row">
+      <div class="col"> <h4>请选择多久后与问诊人通话:</h4></div>
+    </div>
+
+    <ion-list>
+
+      <ion-radio ng-model="answerCallTime" ng-value="1">立即</ion-radio>
+      <ion-radio ng-model="answerCallTime" ng-value="5">5分钟后</ion-radio>
+      <ion-radio ng-model="answerCallTime" ng-value="10">10分钟后</ion-radio>
+      <ion-radio ng-model="answerCallTime" ng-value="20">20分钟后</ion-radio>
+      <ion-radio ng-model="answerCallTime" ng-value="30">30分钟后</ion-radio>
+      <ion-radio ng-model="answerCallTime" ng-value="60">1小时后</ion-radio>
+      <ion-radio ng-model="answerCallTime" ng-value="-1">稍后我自己发起</ion-radio>
+
+    </ion-list>
+
+    <a class="item button button-positive button-full" ng-click="setDialTime()">确定</a>
+
+  </ion-content>
+</ion-modal-view>

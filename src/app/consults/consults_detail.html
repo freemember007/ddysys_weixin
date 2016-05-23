@@ -1,0 +1,139 @@
+<ion-view view-title="咨询详情">
+
+  <ion-content>
+
+    <!--问题-->
+    <ion-item class="item-avatar">
+
+      <!--问诊人头像-->
+      <img
+          ng-src="{{consult.patFaceUrl||'img/default_nomale_head_photo.png'}}"
+          onerror="onProfilePicError(this)"/>
+
+      <!--问诊人&进行状态-->
+      <p class="has-right">
+        <span class="h5">{{consult.patName}}</span>
+
+        <span class="small right grey" ng-if="consult.consultType > 20">
+          <i class="icon ion-ios-telephone"></i>
+          <span class="small">电话问诊</span>
+        </span>
+        <span class="small right grey" ng-if="consult.consultType == 20">
+          <i class="icon ion-ios-paper"></i>
+          <span class="small">图文问诊</span>
+        </span>
+        <span class="small right grey" ng-if="consult.consultType < 20">
+          <i class="icon ion-podium"></i>
+          <span class="small">科室咨询</span>
+        </span>
+
+      </p>
+
+      <!--问诊内容-->
+      <p
+          class="padding-vertical font-normal"
+          style="white-space:normal; font-size:16px; line-height: 1.5; color: #666">
+        {{consult.consultContent}}
+      </p>
+      <img ng-if="consult.consultImg" ng-src="{{consult.consultImg}}" width="80%" zoom-view>
+
+      <!--问诊时间&回复数-->
+      <p class="has-right">
+        <span class="small grey padding-right">{{consult.consultTime | date: "MM/dd hh :mm"}}</span>
+        <span class="small grey" ng-if="consult.closeStatus == 0">
+          <i class="icon ion-ios-clock energized"></i>
+          <span class="small">进行中</span>
+        </span>
+        <span class="small grey" ng-if="consult.closeStatus == 1">
+          <i class="icon ion-ios-checkmark positive"></i>
+          <span class="small">已完成</span>
+        </span>
+        <span class="small right grey" ng-if="type!='YW'">
+          {{consult.replyCount}}
+          <i class="icon ion-ios-chatbubble"></i>
+        </span>
+      </p>
+
+    </ion-item>
+
+
+    <!--如果是电话问诊-->
+    <div ng-if="consult.consultType > 20">
+
+      <ion-list class="list" ng-if="!consult.succStatus">
+
+        <div class="item item-divider">
+          问诊费用
+        </div>
+        <a class="item">
+          问诊费用
+          <span class="item-note">{{consult.docPrice||'暂无费用'}}</span>
+        </a>
+        <a class="item">
+          支付状态
+          <span class="item-note">{{consult.patPayStatus == '0' ? '未支付' : '已支付'}}</span>
+        </a>
+
+        <div class="item item-divider">
+          通话记录
+        </div>
+        <a class="item" ng-if="!replies.length">
+          暂无通话记录,请及时联系患者!
+        </a>
+        <a class="item"
+           ng-repeat="reply in replies track by $index"
+           ng-if="reply.callStatus == 1">
+          <span>{{reply.calledStartTime | date : 'M月d日 HH:mm'}}</span>
+          <audio ng-src="{{reply.callRecordUrl|trustAsResourceUrl}}" controls="controls"></audio>
+          <i class="icon ion-play positive"></i>
+        </a>
+
+      </ion-list>
+
+      <div class="padding-horizontal">
+        <button class="button button-positive button-full ">
+          <i class="icon ion-ios-telephone padding-horizontal"></i>
+          呼叫患者
+        </button>
+      </div>
+
+
+    </div>
+
+    <!--如果是图文问诊-->
+    <div id="text-consult" ng-if="consult.consultType < 21">
+
+      <!--回复内容-->
+      <ion-list>
+        <a class="item item-avatar" style="background-color:#f2f2f2; " ng-repeat="reply in replies">
+          <img ng-src="{{reply.replyFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)"
+               ui-sref="patients_detail({patientId:reply.patId})">
+          <p style="white-space:normal">{{reply.replyName}}：{{reply.replyContent}}</p>
+          <p style="color:#999; ">{{consult.consultTime | date: "MM-dd hh:mm"}}</p>
+
+        </a>
+      </ion-list>
+
+      <div id="bottomAnchor"></div>
+
+    </div>
+
+
+  </ion-content>
+
+  <!--底部表单-->
+  <form name="sendMessageForm" novalidate ng-if="consult.consultType < 21">
+    <ion-footer-bar class="bar-stable item-input-inset message-footer" style="background-color: #fff" keyboard-attach>
+      <label class="item-input-wrapper" style="background-color:transparent;">
+        <textarea ng-model="reply.content" value="" placeholder="回复这条咨询..." required minlength="1" maxlength="1500"
+                  style="border: solid 1px #ccc; width:100%;"></textarea>
+      </label>
+      <div class="footer-btn-wrap">
+        <button class="button button-icon icon ion-android-send footer-btn" ng-click="doReply()"
+                ng-disabled="!reply.content || reply.content === ''">
+        </button>
+      </div>
+    </ion-footer-bar>
+  </form>
+
+</ion-view>

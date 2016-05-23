@@ -1,0 +1,43 @@
+<ion-view view-title="患者" hide-back-button="true">
+
+  <ion-nav-buttons side="left" >
+    <button class="button button-clear" ui-sref="dock" ng-if="settings.isAssistent">
+      <img ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" style="height:24px; width:24px; border-radius:12px; margin-top:5px">
+    </button>
+  </ion-nav-buttons>
+  
+  <ion-content style="bottom:48px">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="refresh()">
+    </ion-refresher>
+
+    <a class="item item-icon-left" ui-sref="patients_requests">
+      <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求
+      <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
+    </a>
+
+    <div class="card" ng-if="!patientsGroup[0]">
+      <div class="item item-text-wrap">
+        您还没有患者，请让患者扫您的二维码添加患者。
+      </div>
+    </div>
+
+    <ion-list class="patients_patient_list">
+      <style>
+        .patients_patient_list .avatar {
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+        }
+      </style>
+      <ion-item ng-repeat-start="patients in patientsGroup" class="item-divider">
+        {{patients[0] === '1' ? "星标患者" : "普通患者"}}
+      </ion-item>
+      <a ng-repeat-end class="item item-icon-left" ng-repeat="patient in patients[1]" ui-sref="patients_detail({patientId: patient.patId})">
+        <img class="icon padding avatar" width="52" height="52" ng-src="{{patient.faceUrl}}">
+        <span class="padding-left"></span>{{patient.hzxm}}
+        <span class="padding-left grey small">{{patient.yhxb}}&nbsp;{{patient.patAge + '岁'}}</span>
+      </a>
+    </ion-list>
+
+  </ion-content>
+</ion-view>
