@@ -1,4 +1,4 @@
-angular.module('ddysys',[
+angular.module('ddysys', [
   'ionic',
   'ddysys.services',
   'ddysys.services.api',
@@ -17,40 +17,79 @@ angular.module('ddysys',[
   'ddysys.controllers.appointments',
   'ddysys.controllers.consults',
   'ddysys.controllers.events'
-  // 'underscore' 
 ])
   .run(run)
   .config(config);
+
+
+//--------- 运行 ---------//
+run.$inject = ['$ionicPlatform', '$rootScope', '$ionicLoading', '$state', '$localStorage', '$ionicPopup'];
+function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $ionicPopup) {
+  $ionicPlatform.ready(function () {
+
+    // 状态bar风格
+    if (window.StatusBar) {
+      // cordova-plugin-statusba required
+      StatusBar.styleLightContent();
+    }
+
+    // 全局loading
+    $rootScope.$on('loading:show', function () {
+      $ionicLoading.show({
+        template: '请稍等...'
+      })
+    });
+    $rootScope.$on('loading:hide', function () {
+      $ionicLoading.hide()
+    });
+
+    // 全局alert
+    $rootScope.$on('alert', function (d, data) {
+      $ionicPopup.alert({
+        title: '提示',
+        template: data.msg + '（code: ' + data.code + '）'
+      })
+    });
+
+    // 登录状态判断
+    if ($localStorage.get('token')) {
+      // $state.go('tab.home');
+    } else {
+      $state.go('login');
+    }
+  });
+}
 
 
 //--------- 配置 ---------//
 config.$inject = ['$provide', '$stateProvider', '$urlRouterProvider', '$ionicConfigProvider', '$httpProvider'];
 function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
-// 定义常量
-// $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
-// $provide.constant('apiUrl', 'http://192.168.0.140:8080/gh_ws_webfep/app');
-// $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
-// $provide.constant('apiUrl', 'http://183.129.141.106:8004/app');
+  // 定义常量
+  // $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
+  // $provide.constant('apiUrl', 'http://192.168.0.140:8080/gh_ws_webfep/app');
+  // $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
+  // $provide.constant('apiUrl', 'http://183.129.141.106:8004/app');
   $provide.constant('apiUrl', 'http://ws.diandianys.com/app');
 
-// 不允许swipe返回
+  // 不允许swipe返回
   $ionicConfigProvider.views.swipeBackEnabled(false);
 
-// 允许CORS请求
+  // 允许CORS请求
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.headers.post['Content-Type'] = 'text/plain';
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-// http拦截器
+  // http拦截器
   $httpProvider.interceptors.push('Interceptor');
 
-//tab与nav风格
-// $ionicConfigProvider.tabs.position('bottom');
+  //tab与nav风格
+  // $ionicConfigProvider.tabs.position('bottom');
   $ionicConfigProvider.navBar.alignTitle('center');
-// $ionicConfigProvider.tabs.style('standard');
+  // $ionicConfigProvider.tabs.style('standard');
 
   $urlRouterProvider.otherwise('/login');
+
 
   $stateProvider
 
@@ -291,46 +330,6 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
     })
 
 }
-
-
-run.$inject = ['$ionicPlatform', '$rootScope', '$ionicLoading', '$state', '$localStorage', '$ionicPopup'];
-function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $ionicPopup) {
-  $ionicPlatform.ready(function () {
-
-// 状态bar风格
-    if (window.StatusBar) {
-      // cordova-plugin-statusba required
-      StatusBar.styleLightContent();
-    }
-
-// 全局loading
-    $rootScope.$on('loading:show', function () {
-      $ionicLoading.show({
-        template: '请稍等...'
-      })
-    });
-    $rootScope.$on('loading:hide', function () {
-      $ionicLoading.hide()
-    });
-
-    // 全局alert
-    $rootScope.$on('alert', function (d, data) {
-      $ionicPopup.alert({
-        title: '提示',
-        template: data.msg + '（code: ' + data.code + '）'
-      })
-    });
-
-// 登录状态判断
-    if ($localStorage.get('token')) {
-      // $state.go('tab.home');
-    } else {
-      $state.go('login');
-    }
-  });
-}
-
-
 
 
 //--------- 模块宣扬及依存 ---------//
