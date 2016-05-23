@@ -10,9 +10,9 @@ PostData.$inject = ['$localStorage'];
 function PostData($localStorage) {
   var PostData = function (service) {
     this.spid = '9920';
-    this.channel = '1';
-    this.random = '1234';
-    this.sign = 'c559573c2589f78d376da8476edf946a';
+    this.channel = '13';
+    this.random = '065c';
+    this.sign = '5f54e74af1ec3276d298da5a15831170';
     this.format = 'JSON';
     this.oper = '127.0.0.1';
     this.token = $localStorage.get('token');

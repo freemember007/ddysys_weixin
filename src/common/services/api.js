@@ -10,10 +10,10 @@ function Api($localStorage, apiUrl, $http) {
 
   this.baseParams = {
     'spid': '9920',
-    'channel': '1',
-    'sign': 'c559573c2589f78d376da8476edf946a',
+    'channel': '13',
+    'sign': '5f54e74af1ec3276d298da5a15831170',
     'format': 'JSON',
-    'random': '1234',
+    'random': '065c',
     'oper': '127.0.0.1',
     'token': $localStorage.get('token')
   };
