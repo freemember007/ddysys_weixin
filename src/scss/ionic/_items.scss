@@ -114,36 +114,36 @@
 .item-complex.activated .item-content,
 .item .item-content.active,
 .item .item-content.activated {
-  @include item-active-style($item-default-active-bg, $item-default-active-border);
-
-  // Different active themes for <a> and <button> items
-  &.item-light {
-    @include item-active-style($item-light-active-bg, $item-light-active-border);
-  }
-  &.item-stable {
-    @include item-active-style($item-stable-active-bg, $item-stable-active-border);
-  }
-  &.item-positive {
-    @include item-active-style($item-positive-active-bg, $item-positive-active-border);
-  }
-  &.item-calm {
-    @include item-active-style($item-calm-active-bg, $item-calm-active-border);
-  }
-  &.item-assertive {
-    @include item-active-style($item-assertive-active-bg, $item-assertive-active-border);
-  }
-  &.item-balanced {
-    @include item-active-style($item-balanced-active-bg, $item-balanced-active-border);
-  }
-  &.item-energized {
-    @include item-active-style($item-energized-active-bg, $item-energized-active-border);
-  }
-  &.item-royal {
-    @include item-active-style($item-royal-active-bg, $item-royal-active-border);
-  }
-  &.item-dark {
-    @include item-active-style($item-dark-active-bg, $item-dark-active-border);
-  }
+  //@include item-active-style($item-default-active-bg, $item-default-active-border);
+  //
+  //// Different active themes for <a> and <button> items
+  //&.item-light {
+  //  @include item-active-style($item-light-active-bg, $item-light-active-border);
+  //}
+  //&.item-stable {
+  //  @include item-active-style($item-stable-active-bg, $item-stable-active-border);
+  //}
+  //&.item-positive {
+  //  @include item-active-style($item-positive-active-bg, $item-positive-active-border);
+  //}
+  //&.item-calm {
+  //  @include item-active-style($item-calm-active-bg, $item-calm-active-border);
+  //}
+  //&.item-assertive {
+  //  @include item-active-style($item-assertive-active-bg, $item-assertive-active-border);
+  //}
+  //&.item-balanced {
+  //  @include item-active-style($item-balanced-active-bg, $item-balanced-active-border);
+  //}
+  //&.item-energized {
+  //  @include item-active-style($item-energized-active-bg, $item-energized-active-border);
+  //}
+  //&.item-royal {
+  //  @include item-active-style($item-royal-active-bg, $item-royal-active-border);
+  //}
+  //&.item-dark {
+  //  @include item-active-style($item-dark-active-bg, $item-dark-active-border);
+  //}
 }
 
 // Handle text overflow

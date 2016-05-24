@@ -10,3 +10,6 @@
 - > bower install 
 - > grunt build
 - visit: http://localhost:9000
+
+## 其他
+- home与patients弃用, 新增managePatients(管患者)

@@ -94,8 +94,9 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   // 禁用动画
   $ionicConfigProvider.views.transition('none');
 
-  // 允许向前缓存
-  $ionicConfigProvider.views.forwardCache('true')
+  // 缓存
+  $ionicConfigProvider.views.maxCache(100);
+  $ionicConfigProvider.views.forwardCache('true');
 
   $urlRouterProvider.otherwise('/login');
 
