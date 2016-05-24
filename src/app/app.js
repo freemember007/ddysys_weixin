@@ -72,8 +72,13 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   // $provide.constant('apiUrl', 'http://183.129.141.106:8004/app');
   $provide.constant('apiUrl', 'http://ws.diandianys.com/app');
 
-  // 不允许swipe返回
-  $ionicConfigProvider.views.swipeBackEnabled(false);
+  // ios上允许swipe返回
+  $ionicConfigProvider.views.swipeBackEnabled(true);
+
+  $ionicConfigProvider.spinner.icon('lines');
+
+  $ionicConfigProvider.templates.maxPrefetch(0);
+
 
   // 允许CORS请求
   $httpProvider.defaults.useXDomain = true;
@@ -84,9 +89,13 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   $httpProvider.interceptors.push('Interceptor');
 
   //tab与nav风格
-  // $ionicConfigProvider.tabs.position('bottom');
   $ionicConfigProvider.navBar.alignTitle('center');
-  // $ionicConfigProvider.tabs.style('standard');
+
+  // 禁用动画
+  $ionicConfigProvider.views.transition('none');
+
+  // 允许向前缓存
+  $ionicConfigProvider.views.forwardCache('true')
 
   $urlRouterProvider.otherwise('/login');
 

@@ -1,5 +1,11 @@
 $positive: #73c167 !default;
-
+.item {
+  border-top: 0.5px solid #eee !important;
+  border-bottom: 0.5px solid #eee !important;
+}
+.view-container {
+  transform:none !important;
+}
 
 
 /* 原子化样式 */

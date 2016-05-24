@@ -123,11 +123,11 @@ module.exports = function (grunt) {
         tasks: ['sass']
       },
       html2js: {
-        files: ['src/**/*.html'],
+        files: ['src/**/*.html','!src/index.html'],
         tasks: ['html2js']
       },
       copy: {
-        files: ['src/fonts/*.*', 'src/img/*.*'],
+        files: ['src/index.html', 'src/fonts/*.*', 'src/img/*.*'],
         tasks: ['copy']
       },
       livereload: {
