@@ -27,16 +27,10 @@ run.$inject = ['$ionicPlatform', '$rootScope', '$ionicLoading', '$state', '$loca
 function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $ionicPopup) {
   $ionicPlatform.ready(function () {
 
-    // 状态bar风格
-    if (window.StatusBar) {
-      // cordova-plugin-statusba required
-      StatusBar.styleLightContent();
-    }
-
     // 全局loading
     $rootScope.$on('loading:show', function () {
       $ionicLoading.show({
-        template: '请稍等...'
+        template: '加载中...'
       })
     });
     $rootScope.$on('loading:hide', function () {
@@ -51,14 +45,9 @@ function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $
       })
     });
 
-    // 登录状态判断
-    if ($localStorage.get('token')) {
-      // $state.go('tab.home');
-    } else {
-      $state.go('login');
-    }
   });
 }
+
 
 
 //--------- 配置 ---------//
@@ -72,12 +61,12 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   // $provide.constant('apiUrl', 'http://183.129.141.106:8004/app');
   $provide.constant('apiUrl', 'http://ws.diandianys.com/app');
 
+
+
   // ios上允许swipe返回
   $ionicConfigProvider.views.swipeBackEnabled(true);
 
   $ionicConfigProvider.spinner.icon('lines');
-
-  $ionicConfigProvider.templates.maxPrefetch(0);
 
 
   // 允许CORS请求
@@ -97,9 +86,13 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   // 缓存
   $ionicConfigProvider.views.maxCache(100);
   $ionicConfigProvider.views.forwardCache('true');
+  $ionicConfigProvider.templates.maxPrefetch(0);
 
-  $urlRouterProvider.otherwise('/login');
-
+  // otherwise router
+  $urlRouterProvider.otherwise(function($injector, $location){
+    var localStorage =  $injector.get('$localStorage');
+    return localStorage.get('token') ? '/tab/home' : '/login';
+  });
 
   $stateProvider
 
