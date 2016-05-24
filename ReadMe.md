@@ -1,4 +1,4 @@
-# 点点医生医生版-微信 V2.0
+# ddysys_weixin V2.0
 
 ## 技术架构：
 - angular 1.5 + ionic 1.3
@@ -9,4 +9,4 @@
 - > npm install
 - > bower install 
 - > grunt build
-- 打开浏览器,访问: http://localhost:9000
+- visit: http://localhost:9000
