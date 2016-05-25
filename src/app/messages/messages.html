@@ -43,7 +43,7 @@
   }
 
   .message {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .message-detail {
@@ -167,30 +167,35 @@
     <div ng-repeat="message in messages" class="message-wrapper" >
 
       <!-- 如果是患者 -->
-      <div ng-if="message.msgSource === 'U'">
-        <img ui-sref="patients_detail({patientId:message.patId})" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" />
-        <div class="chat-bubble left ">
-          <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && showZoomView(message.imageUrl) " ng-bind-html="message.msgContent ">
-          </div>
-          <div class="message-detail ">
-            <span ng-click="viewProfile(message) " class="bold ">{{toUser.hzxm}}</span>,
-            <span>{{message.sentTime|date:"MM-dd hh:mm"}}</span>
-          </div>
-        </div>
-      </div>
+        <img ng-if="message.msgSource == 'U'"
+             ui-sref="patients_detail({patientId:message.patId})"
+             class="profile-pic left"
+             ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}"
+             onerror="onProfilePicError(this)" />
+        <img ng-if="message.msgSource == 'D'"
+             class="profile-pic right "
+             ng-src="{{user.dFaceUrl|| 'img/default_nomale_head_photo.png'}} "
+             onerror="onProfilePicError(this) " />
 
-      <!-- 如果是医生 -->
-      <div ng-if="message.msgSource==='D' ">
-        <img ng-click="viewProfile(message) " class="profile-pic right " ng-src="{{user.dFaceUrl|| 'img/default_nomale_head_photo.png'}} " onerror="onProfilePicError(this) " />
-        <div class="chat-bubble right ">
-          <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && showZoomView(message.imageUrl) " ng-bind-html="message.msgContent ">
+        <div class="chat-bubble" ng-class="{left:message.msgSource=='U', right:message.msgSource=='D' }">
+
+          <div class="message" ng-if="message.msgType=='P'">
+            <img ng-src="{{message.msgContent}}" ng-click="showZoomView(message.msgContent)" width="100%">
           </div>
-          <div class="message-detail ">
-            <span ng-click="viewProfile(message) " class="bold ">{{user.dName}}</span>,
+          <div class="message" ng-if="message.msgType=='A'">
+            [语音]暂不支持播放
+          </div>
+          <div class="message" ng-if="message.msgType=='T'">
+            {{message.msgContent}}
+          </div>
+
+          <div class="message-detail">
+            <span ng-if="message.msgSource=='U'" class="bold">{{toUser.hzxm}}</span>
+            <span ng-if="message.msgSource=='D'" class="bold">{{user.dName}}</span>
             <span>{{message.sentTime|date:"MM-dd hh:mm"}}</span>
           </div>
+
         </div>
-      </div>
 
       <div class="cf ">
       </div>
@@ -198,26 +203,11 @@
     </div>
   </ion-content>
 
-  <!-- 录音弹层 -->
-  <div ng-if="input.isRecording">
-    <div class="recording-mask" />
-    </div>
-    <div class="recording-panel">
-      <img class="" src="img/1439633179_media-record.png" />
-      <h5 style="color:#999">录音中，持续时间:</h5>
-      <h3 style="color:#999">{{input.recordTime}}</h3>
-    </div>
-  </div>
 
   <!-- 发区布 -->
   <form name="sendMessageForm " novalidate style="background-color: #fff;">
 
-    <!-- 发文字 -->
     <ion-footer-bar class="bar-stable item-input-inset message-footer " style="background-color:#fff; padding:10px 0" keyboard-attach>
-
-      <div class="footer-btn-wrap">
-        <button class="button button-icon ion-volume-high footer-btn" ng-click="toggleInputStatus()" />
-      </div>
 
       <div class="footer-btn-wrap">
         <button class="button button-icon ion-image footer-btn" ng-click="uploadImage()" />
@@ -232,16 +222,6 @@
       </div>
     </ion-footer-bar>
 
-    <!-- 发语音 -->
-    <ion-footer-bar ng-if="input.audioPanel" class="bar-stable item-input-inset message-footer " style="background-color:#fff">
-      <div class="footer-btn-wrap">
-        <button class="button button-icon ion-grid footer-btn" ng-click="toggleInputStatus()" />
-      </div>
-
-      <button  style="margin-left:20px" class="button button-block " on-long-press="startRecord()" on-touch-end="uploadAudio()">
-        按住说话
-      </button>
-    </ion-footer-bar>
 
   </form>
 

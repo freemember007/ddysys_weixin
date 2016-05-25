@@ -221,7 +221,7 @@ ion-infinite-scroll {
 // Note: For these to work, content must come after both bars in the markup
 /* If you change these, change platform.ionic as well */
 .has-header {
-  top: $bar-height;
+  top: 48px;
 }
 // Force no header
 .no-header {

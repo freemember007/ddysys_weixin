@@ -20,5 +20,5 @@
     opacity: 1;
   }
 
-  @include transition($loading-backdrop-fadein-duration opacity linear);
+  //@include transition($loading-backdrop-fadein-duration opacity linear);
 }

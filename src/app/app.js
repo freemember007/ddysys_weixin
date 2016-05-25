@@ -7,6 +7,8 @@ angular.module('ddysys', [
   'ddysys.directives',
   'ddysys.filters',
   'ddysys.controllers.login',
+  'ddysys.controllers.tabs',
+  'ddysys.controllers.managePatients',
   'ddysys.controllers.home',
   'ddysys.controllers.messages',
   'ddysys.controllers.news',
@@ -23,15 +25,18 @@ angular.module('ddysys', [
 
 
 //--------- 运行 ---------//
-run.$inject = ['$ionicPlatform', '$rootScope', '$ionicLoading', '$state', '$localStorage', '$ionicPopup'];
-function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $ionicPopup) {
+run.$inject = ['$ionicPlatform', '$rootScope', '$ionicLoading', '$state', '$localStorage', '$ionicPopup','$ionicBackdrop'];
+function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $ionicPopup,$ionicBackdrop) {
   $ionicPlatform.ready(function () {
 
     // 全局loading
     $rootScope.$on('loading:show', function () {
       $ionicLoading.show({
-        template: '加载中...'
-      })
+        template: '加载中...',
+        noBackdrop: true,
+        hideOnStateChange: true,
+        duration: 5000
+      });
     });
     $rootScope.$on('loading:hide', function () {
       $ionicLoading.hide()
@@ -84,14 +89,14 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   $ionicConfigProvider.views.transition('none');
 
   // 缓存
-  $ionicConfigProvider.views.maxCache(100);
+  $ionicConfigProvider.views.maxCache(30);
   $ionicConfigProvider.views.forwardCache('true');
   $ionicConfigProvider.templates.maxPrefetch(0);
 
   // otherwise router
   $urlRouterProvider.otherwise(function($injector, $location){
     var localStorage =  $injector.get('$localStorage');
-    return localStorage.get('token') ? '/tab/home' : '/login';
+    return localStorage.get('token') ? '/tab/managePatients' : '/login';
   });
 
   $stateProvider
@@ -100,8 +105,14 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
     .state('tab', {
       url: '/tab',
       abstract: true,
-      template: templates['src/app/home/tabs.html'],
-      controller: 'tabCtrl'
+      template: templates['src/app/tabs/tabs.html'],
+      controller: 'TabsCtrl'
+    })
+
+    .state('tab.managePatients', {
+      url: '/managePatients',
+      template: templates['src/app/managePatients/managePatients.html'],
+      controller: 'ManagePatientsCtrl'
     })
 
 
@@ -218,7 +229,7 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
     })
 
     // 资讯
-    .state('news', {
+    .state('tab.news', {
       url: '/news',
       template: templates['src/app/news/news.html'],
       controller: 'NewsCtrl',

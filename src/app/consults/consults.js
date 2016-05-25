@@ -29,7 +29,7 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
   // 初始化
   $scope.setType('DS');
   $scope.$on("$ionicView.enter", function () {
-    $scope.active('isTab3');
+    $scope.active('isTab2');
   });
 
   function setType(type) {
@@ -101,33 +101,27 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
     });
   }
 
-  //医生回拨电话
-  // Api.post('appdoccallpatforconsult', {consultId: '2232'}).then(function(data){
-  //  $scope.consult = data;
-  // });
 
 }
 
 
 //--------- 咨询详情controller ---------//
-ConsultsDetailCtrl.$inject = ['$scope', '$rootScope', '$localStorage', 'Consults', '$stateParams'];
-function ConsultsDetailCtrl($scope, $rootScope, $localStorage, Consults, $stateParams) {
 
-  $scope.$on("$ionicView.enter", function () {
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-  });
+ConsultsDetailCtrl.$inject = ['$scope', '$rootScope', '$localStorage', 'Consults', '$stateParams', 'Api','$ionicPopup', '$ionicModal'];
 
-  $scope.$on("$ionicView.leave", function () {
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.disableScroll(false);
-    }
-  });
+function ConsultsDetailCtrl($scope, $rootScope, $localStorage, Consults, $stateParams, Api, $ionicPopup, $ionicModal) {
 
   $scope.consult = {};
   $scope.reply = {};
   $scope.user = $localStorage.getObject('user');
+  $scope.doReply = doReply;
+  $scope.callPatient = callPatient;
+  $scope.callingModal = $ionicModal.fromTemplate(templates['src/app/templates/calling.html'], {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+
+  init();
 
   function init() {
     Consults.get($stateParams.consultId).then(function (data) {
@@ -137,22 +131,20 @@ function ConsultsDetailCtrl($scope, $rootScope, $localStorage, Consults, $stateP
     })
   }
 
-  init();
-
-  $scope.doReply = function () {
+  function doReply() {
     Consults.reply($scope.consult.consultId, $scope.reply.content).then(function (data) {
       if (!data) return;
-      // $scope.consult = data.userConsultForm; //接口没有传加userConsultForm对象
       init();
       $scope.reply.content = '';
       $rootScope.setConsultType($rootScope.consultType);
-      // $scope.replies.unshift({
-      //   replyContent: $scope.reply.content,
-      //   replyName: $scope.user.dName,
-      //   replyTime: new Date(),
-      //   replyFaceUrl: $scope.user.dFaceUrl,
-      // })
     })
   }
 
-};
+  function callPatient(consultId) {
+    $scope.callingModal.show();
+    // Api.post('appdoccallpatforconsult', {consultId: consultId}).then(function(data){
+    //
+    // });
+  }
+
+}

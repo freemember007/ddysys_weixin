@@ -6,6 +6,10 @@ angular.module('ddysys.controllers.news', [])
 NewsCtrl.$inject = ['$scope', 'News', '$ionicListDelegate', '$timeout'];
 function NewsCtrl($scope, News, $ionicListDelegate, $timeout) {
 
+  $scope.$on("$ionicView.enter", function () {
+    $scope.active('isTab3');
+  });
+
   $scope.news = [];
 
   $scope.doRefresh = function () {
@@ -61,7 +65,10 @@ function NewsDetailCtrl($scope, $ionicLoading, $stateParams, $sce) {
   // console.log($scope.title)
 
   $ionicLoading.show({
-    template: '加载中...'
+    template: '加载中...',
+    noBackdrop: true,
+    hideOnStateChange: true,
+    duration: 5000
   });
 
   // var id = "09774f6c35";

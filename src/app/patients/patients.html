@@ -1,54 +1,20 @@
 <ion-view view-title="患者" hide-back-button="true">
 
-  <!--左右导航button-->
-  <!--<ion-nav-buttons side="left" >-->
-    <!--<button class="button button-clear" ui-sref="dock" ng-if="settings.isAssistent">-->
-      <!--<img ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" style="height:24px; width:24px; border-radius:12px; margin-top:5px">-->
-    <!--</button>-->
-  <!--</ion-nav-buttons>-->
-
-  <!--Tab切换-->
-  <!--<div-->
-    <!--class="tabs-striped tabs-top tabs-background-light tabs-color-positive"-->
-    <!--style="">-->
-    <!--<div class="tabs">-->
-      <!--<a class="tab-item  {{(type == 'DS')?'active':''}}" style="color:#999" ng-click="setType('DS')">患者会话</a>-->
-      <!--<a class="tab-item  {{(type == 'DU')?'active':''}}" style="color:#999" ng-click="setType('DU')">患者管理</a>-->
-    <!--</div>-->
-  <!--</div>-->
+  <!--类型切换-->
+  <div
+    class="tabs-striped tabs-top tabs-background-light tabs-color-positive">
+    <div class="tabs" style="top:0">
+      <a class="tab-item" style="color:#666;font-size:16px" ui-sref="tab.managePatients">患者会话</a>
+      <a class="tab-item active" style="color:#666;font-size:16px" ui-sref="tab.patients">患者管理</a>
+    </div>
+  </div>
 
   <!--内容区-->
-  <ion-content style="bottom:48px">
+  <ion-content class="has-header padding-top" style="bottom:48px;background-color:#f4f4f4"">
     <ion-refresher pulling-text="下拉刷新..." on-refresh="refresh()">
     </ion-refresher>
 
-    <!-- 患者沟通 -->
-    <!--<div class="messages">-->
-      <!--<div style="padding:10px 16px; font-size:16px">患者沟通</div>-->
-      <!--<div class="card" ng-if="!userMessages[0]">-->
-        <!--<div class="item item-text-wrap">-->
-          <!--暂无患者沟通。-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="list">-->
-        <!--<style>-->
-          <!--.home_patients_list_avatar {-->
-            <!-- -webkit-border-radius: 50%;-->
-            <!-- -moz-border-radius: 50%;-->
-            <!--border-radius: 50%;;-->
-          <!--}-->
-        <!--</style>-->
-        <!--<a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">-->
-          <!--<img class='home_patients_list_avatar' ng-src="{{userMessage.patFaceUrl}}">-->
-          <!--<span class="badge badge-assertive" ng-if="userMessage.unreadCount">{{userMessage.unreadCount}}</span>-->
-          <!--<h2>{{userMessage.patName}}</h2>-->
-          <!--<p>{{userMessage.msgContent}}</p>-->
-        <!--</a>-->
-      <!--</div>-->
-    <!--</div>-->
 
-    <!-- 患者管理 -->
-    <div class="manage">
       <a class="item item-icon-left" ui-sref="patients_requests">
         <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求
         <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
@@ -75,7 +41,7 @@
           <span class="padding-left grey small">{{patient.yhxb}}&nbsp;{{patient.patAge + '岁'}}</span>
         </a>
       </ion-list>
-    </div>
+
 
   </ion-content>
 

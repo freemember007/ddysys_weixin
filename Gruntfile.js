@@ -8,7 +8,7 @@ module.exports = function (grunt) {
     concat: {
       build: {
         files: {
-          'build/js/app.js': ['src/**/*.js', '!src/lib/*.js'],
+          'build/js/app.js': ['src/**/*.js', '!src/lib/*.js', '!src/trash/**/*.js'],
           'build/js/lib.js': ['src/lib/*.js']
         }
       }
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
         }
       },
       build: {
-        src: ['src/**/*.html'],
+        src: ['src/**/*.html', '!src/trash/**/*.html'],
         dest: 'build/js/templates.js'
       }
     },
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
       },
       build: {
         options: {
-          open: false, //自动打开网页 http://
+          open: true,
           base: [
             './build' //主目录
           ]
@@ -106,7 +106,7 @@ module.exports = function (grunt) {
       },
       release: {
         options: {
-          open: true, //自动打开网页 http://
+          open: true,
           base: [
             './release' //主目录
           ]

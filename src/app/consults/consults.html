@@ -1,34 +1,26 @@
 <ion-view view-title="咨询" hide-back-button="true">
 
-  <!--左右导航button-->
-  <!--<ion-nav-buttons side="left">-->
-    <!--<button class="button button-clear" ui-sref="dock" ng-if="settings.isAssistent">-->
-      <!--<img ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}"-->
-           <!--style="height:24px; width:24px; border-radius:12px; margin-top:5px">-->
-    <!--</button>-->
-  <!--</ion-nav-buttons>-->
 
   <!--咨询类型切换-->
   <div
-      class="tabs-striped tabs-top tabs-background-light tabs-color-positive"
-      style="">
-    <div class="tabs">
-      <a class="tab-item  {{(type == 'DS')?'active':''}}" style="color:#999" ng-click="setType('DS')">我的</a>
-      <a class="tab-item  {{(type == 'DU')?'active':''}}" style="color:#999" ng-click="setType('DU')">待回复</a>
-      <a class="tab-item  {{(type == 'DD')?'active':''}}" style="color:#999" ng-click="setType('DD')">科室</a>
-      <a class="tab-item  {{(type == 'YW')?'active':''}}" style="color:#999" ng-click="setType('YW')">院外</a>
+      class="tabs-striped tabs-top tabs-background-light tabs-color-positive">
+    <div class="tabs" style="top:0">
+      <a class="tab-item  {{(type == 'DS')?'active':''}}" style="color:#666;font-size:16px" ng-click="setType('DS')">我的</a>
+      <a class="tab-item  {{(type == 'DU')?'active':''}}" style="color:#666;font-size:16px" ng-click="setType('DU')">待回复</a>
+      <a class="tab-item  {{(type == 'DD')?'active':''}}" style="color:#666;font-size:16px" ng-click="setType('DD')">科室咨询</a>
+      <a class="tab-item  {{(type == 'YW')?'active':''}}" style="color:#666;font-size:16px" ng-click="setType('YW')">院外问诊</a>
     </div>
   </div>
 
   <!--内容区-->
-  <ion-content class="has-subheader light-bg" style="bottom:48px">
+  <ion-content class="has-header light-bg" style="bottom:48px">
 
     <!--下拉刷新-->
     <ion-refresher pulling-text="下拉刷新..." on-refresh="setType(type)">
     </ion-refresher>
 
     <!--没有内容-->
-    <div class="card" ng-if="!consults[0]">
+    <div class="" ng-if="!consults[0]">
       <div class="item item-text-wrap" ng-bind="{{!consults[0]}} && '该分类下暂无咨询。'">
       </div>
     </div>
@@ -40,7 +32,7 @@
       <ion-item
           ng-repeat="consult in consults"
           class="card item-avatar"
-          style="border: none"
+          style="border: none; margin-top:10px;margin-bottom:10px"
           type="item-text-wrap"
           ng-click="showDetail(consult)">
 
@@ -51,7 +43,7 @@
 
         <!--问诊人&问诊类型-->
         <p class="has-right">
-          <span class="h5">{{consult.patName}}</span>
+          <span class="h5 bold">{{consult.patName}}</span>
 
           <span class="small right grey" ng-if="consult.consultType > 20">
             <i class="icon ion-ios-telephone"></i>
@@ -96,9 +88,9 @@
         </p>
 
         <!--抢单操作-->
-        <div class=" padding-top row" ng-if="type=='YW'">
+        <div class="padding-top row" ng-if="type=='YW'">
           <button
-              class="button button-small padding-horizontal col-50 col-offset-25"
+              class="button button-small button-full"
               ng-class="{'button-balanced': consult.receiveStatus == 0, 'button-grey': consult.receiveStatus == 3}"
               ng-click="snatchConsult(consult)"
           >

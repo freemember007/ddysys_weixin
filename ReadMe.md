@@ -12,4 +12,4 @@
 - visit: http://localhost:9000
 
 ## 其他
-- home与patients弃用, 新增managePatients(管患者)
+- app > trash 是回收站, 暂时没用的东西

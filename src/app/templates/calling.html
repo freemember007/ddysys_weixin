@@ -1,0 +1,19 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">即将来电</h1>
+  </ion-header-bar>
+  <ion-content class="text-center padding">
+    <div class="padding light">
+      <h4 class="grey">以下号码将同时呼叫您与患者:</h4>
+      <h2 class="energized padding-vertical">400-800-5555</h2>
+      <ion-spinner class="spinner-energized" icon="lines"></ion-spinner>
+      <h5 class="padding-vertical grey">请准备接听,接通后请继续等待患者接通</h5>
+      <small class="padding-vertical item item-text-wrap grey small" style="font-size: 12px">
+        本问诊系统采用双向回呼电话技术,以最大程度保障通话双方隐私,通话完全免费。
+      </small>
+      <a class="item button button-positive button-full margin-horizental" ng-click="callingModal.hide()">知道了</a>
+    </div>
+
+
+  </ion-content>
+</ion-modal-view>

@@ -34,7 +34,7 @@ function LoginCtrl($scope, $state, PostData, $md5, $system, $http, $localStorage
                 break;
               case '2':
                 $localStorage.set('token', data.token);
-                $state.go("tab.home");
+                $state.go("tab.managePatients");
                 break;
               case '3':
                 $state.go("register_waiting")
@@ -70,7 +70,7 @@ DockCtrl.$inject = ['$scope', '$state', 'PostData', '$http', '$localStorage', '$
           $localStorage.setObject('doctor', data.yyysList[0]);
           $localStorage.set('token', data.token);
           $ionicHistory.clearCache(); // 重要，否则四个tab页不会刷新
-          $state.go("tab.home");
+          $state.go("tab.managePatients");
           $rootScope.initHome(); // 重要，否则首页不会刷新
         }
       })

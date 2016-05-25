@@ -11,7 +11,7 @@ PatientsCtrl.$inject = ['$scope', 'Patients', 'badge', '$rootScope', '$localStor
 function PatientsCtrl($scope, Patients, badge, $rootScope, $localStorage) {
 
   $scope.$on( "$ionicView.enter", function(){
-    $scope.active('isTab2');
+    $scope.active('isTab1');
   });
   
   sortList(Patients.getLocal());

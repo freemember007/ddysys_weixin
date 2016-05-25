@@ -83,17 +83,20 @@
         <a class="item"
            ng-repeat="reply in replies track by $index"
            ng-if="reply.callStatus == 1">
-          <span>{{reply.calledStartTime | date : 'M月d日 HH:mm'}}</span>
-          <audio ng-src="{{reply.callRecordUrl|trustAsResourceUrl}}" controls="controls"></audio>
-          <i class="icon ion-play positive"></i>
+          <p class="grey">
+            {{reply.calledStartTime | date : 'M月d日 HH:mm'}}
+          </p>
+          <p class="padding-top">
+            <audio ng-src="{{reply.callRecordUrl | trustAsResourceUrl}}" controls="controls" preload="meta"></audio>
+          </p>
         </a>
 
       </ion-list>
 
-      <div class="padding-horizontal">
+      <div class="padding-horizontal" ng-click="callPatient(consult.consultId)">
         <button class="button button-positive button-full ">
           <i class="icon ion-ios-telephone padding-horizontal"></i>
-          呼叫患者
+          发起通话
         </button>
       </div>
 
