@@ -34,6 +34,13 @@ ion-content{
   user-select: auto;
 }
 
+ion-view {
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
 
 .line-small {
   line-height: 1 !important;
@@ -144,8 +151,16 @@ ion-content{
   color: #666666!important;
 }
 
+.gray-5 {
+  color: #555555!important;
+}
+
 .gray-4 {
   color: #444444!important;
+}
+
+.gray-3 {
+  color: #333333!important;
 }
 
 a.autolinker {

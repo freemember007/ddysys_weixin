@@ -7,8 +7,8 @@
     .controller('AccountBarcodeCtrl', AccountBarcodeCtrl)
     .controller('AccountTimetableCtrl', AccountTimetableCtrl)
     .controller('AccountInfoCtrl', AccountInfoCtrl)
-    .controller('AccountSetCtrl', AccountInfoCtrl)
-    .controller('AccountModpwdCtrl', AccountInfoCtrl);
+    .controller('AccountSetCtrl', AccountSetCtrl)
+    .controller('AccountModpwdCtrl', AccountModpwdCtrl);
 
   //我的Ctrl
   AccountCtrl.$inject = ['$scope', '$state', '$localStorage', 'PostData', '$http', '$ionicHistory'];
@@ -148,11 +148,25 @@
 
   }
 
-  // 设置Ctrl
-  AccountSetCtrl.$inject = ['$scope', '$http', '$localStorage'];
-  function AccountSetCtrl($scope, $http, $localStorage) {
+  // 抢单设置Ctrl
+  AccountSetCtrl.$inject = ['$scope', '$localStorage', 'Api'];
+  function AccountSetCtrl($scope, $localStorage, Api) {
 
     $scope.user = $localStorage.getObject('user');
+    $scope.currentSet = {
+      BY: 0,
+      YW: 0
+    };
+    $scope.alterSet = alterSet;
+    var params = {
+      did: $scope.user.did
+    };
+    
+    function alterSet() {
+      Api.post('appdocsetconsultpush', params).then(function(data){
+
+      })
+    }
 
   }
 
