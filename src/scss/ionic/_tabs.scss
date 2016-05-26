@@ -146,7 +146,7 @@
 @mixin tabs-color($style, $color) {
   .#{$style} {
     .tab-item {
-      color: rgba($color, $tabs-off-opacity);
+      color: #999;
       opacity: 1;
       .badge{
         opacity:$tabs-off-opacity;

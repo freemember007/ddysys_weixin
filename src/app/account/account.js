@@ -14,10 +14,9 @@
   AccountCtrl.$inject = ['$scope', '$state', '$localStorage', 'PostData', '$http', '$ionicHistory'];
   function AccountCtrl($scope, $state, $localStorage, PostData, $http, $ionicHistory) {
 
-    var vm = this;
-    vm.user = $localStorage.getObject('user');
-    vm.doctor = $localStorage.getObject('doctor');
-    vm.doLogout = doLogout;
+    $scope.user = $localStorage.getObject('user');
+    $scope.doctor = $localStorage.getObject('doctor');
+    $scope.doLogout = doLogout;
 
     function doLogout() {
       if ($localStorage.get('assistenToken')) {

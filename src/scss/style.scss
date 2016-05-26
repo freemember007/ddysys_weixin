@@ -10,52 +10,142 @@ $positive: #73c167 !default;
 
 /* 原子化样式 */
 
+* {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+
+ion-content{
+  overflow-scroll: true;
+}
+
+.scroll-content {
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important;}
+
+.selectable {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+
+
+.line-small {
+  line-height: 1 !important;
+}
+
+.line-normal {
+  line-height: 1.5 !important;
+}
+
+.line-big {
+  line-height: 2 !important;
+}
+
+.bold {
+  font-weight:bold !important;
+}
+
+.font-tiny {
+  font-size:12px !important;
+}
+
+.font-small {
+  font-size:14px !important;
+}
+
+.font-normal {
+  font-size: 16px !important;
+}
+
+.font-big {
+  font-size: 18px !important;
+}
+
+.font-huge {
+  font-size: 20px !important;
+}
+
+.font-normal {
+  font-size: 16px !important;
+}
+
+.round {
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  border-radius:50%;
+}
+
 .tl {
-  text-align: left;
+  text-align: left!important;
 }
 
 .tr {
-  text-align: right;
+  text-align: right!important;
 }
 
 .tc {
-  text-align: center;
+  text-align: center!important;
 }
 
 .vm {
-  vertical-align: middle;
+  vertical-align: middle!important;
 }
 
 .fl {
-  float: left;
+  float: left!important;
 }
 
 .fr {
-  float: right;
+  float: right!important;
 }
 
 .cf {
   clear: both !important;
 }
 
+.clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
 .bold {
-  font-weight: bold;
+  font-weight: bold!important;
 }
 
 .gray-c {
-  color: #cccccc
+  color: #cccccc!important;
 }
 
 .gray-9 {
-  color: #999999
+  color: #999999!important;
+}
+
+.gray-8 {
+  color: #888888!important;
+}
+
+.gray-7 {
+  color: #777777!important;
+}
+
+.gray-6 {
+  color: #666666!important;
 }
 
 .gray-4 {
-  color: #444444
-}
-
-.tfont-normal {
-  font-size: 16px;
+  color: #444444!important;
 }
 
 a.autolinker {
@@ -122,6 +212,14 @@ a.autolinker {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.pull-right {
+  float: right !important;
 }
 
 /* 底部输入框 */

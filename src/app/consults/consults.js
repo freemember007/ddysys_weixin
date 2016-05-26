@@ -15,7 +15,9 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
   $scope.currentSnatchConsultId = ''; //当前抢单ID
   $scope.setDialTimeModal = $ionicModal.fromTemplate(templates['src/app/templates/setDialTime.html'], {
     scope: $scope,
-    animation: 'slide-in-up'
+    animation: 'slide-in-up',
+    backdropClickToClose: true,
+    hardwareBackButtonClose: false
   });
   $scope.answerCallTime = 1; //预约通话时间
 
@@ -27,7 +29,7 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
   $scope.setDialTime = setDialTime;
 
   // 初始化
-  // $scope.setType('DS');
+  $scope.setType('DS');
 
   function setType(type) {
     $scope.type = type;
@@ -40,12 +42,14 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
     })
   }
 
+  // 去详情页
   function showDetail(consult) {
     if ($scope.type != 'YW') {
       $state.go('consults_detail', {consultId: consult.consultId});
     }
   }
 
+  // 抢单
   function snatchConsult(consult) {
     Api.post('appdocreceiveconsult', {
       consultId: consult.consultId,
@@ -64,6 +68,7 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
     })
   }
 
+  // 提醒设置通话时间
   function mentionSetDialTime() {
     $ionicPopup.confirm({
       title: '提示',
@@ -82,6 +87,7 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
     });
   }
 
+  // 设置通话时间
   function setDialTime() {
     $scope.setDialTimeModal.hide();
     Api.post('appdocsetanswercalltime', {
@@ -115,7 +121,9 @@ function ConsultsDetailCtrl($scope, $rootScope, $localStorage, Consults, $stateP
   $scope.callPatient = callPatient;
   $scope.callingModal = $ionicModal.fromTemplate(templates['src/app/templates/calling.html'], {
     scope: $scope,
-    animation: 'slide-in-up'
+    animation: 'slide-in-up',
+    backdropClickToClose: true,
+    hardwareBackButtonClose: false
   });
 
   init();
@@ -128,6 +136,7 @@ function ConsultsDetailCtrl($scope, $rootScope, $localStorage, Consults, $stateP
     })
   }
 
+  // 回复
   function doReply() {
     Consults.reply($scope.consult.consultId, $scope.reply.content).then(function (data) {
       if (!data) return;
@@ -137,6 +146,7 @@ function ConsultsDetailCtrl($scope, $rootScope, $localStorage, Consults, $stateP
     })
   }
 
+  // 发起通话
   function callPatient(consultId) {
     $scope.callingModal.show();
     // Api.post('appdoccallpatforconsult', {consultId: consultId}).then(function(data){

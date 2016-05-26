@@ -1,4 +1,4 @@
-<ion-view view-title="患者" hide-back-button="true" ng-init="init()" >
+<ion-view view-title="患者" hide-back-button="true" ng-init="init()">
 
   <div
     class="tabs-striped tabs-top tabs-background-light tabs-color-positive">
@@ -7,29 +7,24 @@
       <a class="tab-item" style="color:#666;font-size:16px"  ui-sref="tab.patients">患者管理</a>
     </div>
   </div>
-  <ion-content class="has-header padding-top" style="bottom:48px;background-color:#f4f4f4">
+
+  <ion-content class="has-header padding-top light-bg has-footer" style="bottom:48px">
 
     <ion-refresher pulling-text="下拉刷新..." on-refresh="init()">
     </ion-refresher>
 
-    <div class="card" ng-if="!userMessages[0]">
-      <div class="item item-text-wrap">
+    <div class="" ng-if="!userMessages[0]">
+      <div class="item item-text-wrap gray-9">
         暂无患者沟通。
       </div>
     </div>
     <div class="list">
-      <style>
-        .home_patients_list_avatar {
-          -webkit-border-radius: 50%;
-          -moz-border-radius: 50%;
-          border-radius: 50%;;
-        }
-      </style>
       <a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">
-        <img class='home_patients_list_avatar' ng-src="{{userMessage.patFaceUrl}}">
+        <img class='round' ng-src="{{userMessage.patFaceUrl}}">
         <span class="badge badge-assertive bold" ng-if="userMessage.unreadCount">{{userMessage.unreadCount}}</span>
-        <h2 class="bold">{{userMessage.patName}}</h2>
-        <p style="font-size:16px; color:#999">{{userMessage.msgContent}}</p>
+        <span class="font-normal">{{userMessage.patName}}</span>
+        <span class="pull-right font-small gray-c">{{userMessage.sentTime | date: 'MM-dd HH:mm'}}</span>
+        <p class="font-small gray-8 line-normal" style="padding-top: 5px">{{userMessage.msgContent}}</p>
       </a>
     </div>
   </ion-content>

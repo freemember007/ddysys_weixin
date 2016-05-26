@@ -1,4 +1,4 @@
-<ion-view view-title="咨询" hide-back-button="true" ng-init="setType('DS')">
+<ion-view view-title="咨询" hide-back-button="true">
 
 
   <!--咨询类型切换-->
@@ -21,7 +21,7 @@
 
     <!--没有内容-->
     <div class="" ng-if="!consults[0]">
-      <div class="item item-text-wrap" ng-bind="{{!consults[0]}} && '该分类下暂无咨询。'">
+      <div class="item item-text-wrap gray-9" ng-bind="{{!consults[0]}} && '该分类下暂无咨询。'">
       </div>
     </div>
 
@@ -31,31 +31,34 @@
       <!--问诊项-->
       <ion-item
           ng-repeat="consult in consults"
-          class="card item-avatar"
+          class="card "
           style="border: none; margin-top:10px;margin-bottom:10px"
           type="item-text-wrap"
           ng-click="showDetail(consult)">
 
-        <!--问诊人头像-->
-        <img
-            ng-src="{{consult.patFaceUrl||'img/default_nomale_head_photo.png'}}"
-            onerror="onProfilePicError(this)"/>
+        <!--问诊类型-->
+        <p class="clearfix font-normal ">
 
-        <!--问诊人&问诊类型-->
-        <p class="has-right">
-          <span class="h5 bold">{{consult.patName}}</span>
-
-          <span class="small right grey" ng-if="consult.consultType > 20">
+          <span class="pull-left gray-9" ng-if="consult.consultType > 20">
             <i class="icon ion-ios-telephone"></i>
-            <span class="small">电话问诊</span>
+            <span class="">电话问诊</span>
           </span>
-          <span class="small right grey" ng-if="consult.consultType == 20">
+          <span class="pull-left gray-9" ng-if="consult.consultType == 20">
             <i class="icon ion-ios-paper"></i>
-            <span class="small">图文问诊</span>
+            <span class="">图文问诊</span>
           </span>
-          <span class="small right grey" ng-if="consult.consultType < 20">
+          <span class="pull-left gray-9" ng-if="consult.consultType < 20">
             <i class="icon ion-podium"></i>
-            <span class="small">科室咨询</span>
+            <span class="">科室咨询</span>
+          </span>
+
+          <span class="pull-right font-small gray-c" ng-if="type!='YW' && consult.consultType > 19 && consult.closeStatus == 0">
+            <i class="icon ion-ios-clock positive"></i>
+            <span class="">进行中</span>
+          </span>
+          <span class="pull-right font-small gray-c" ng-if="type!='YW' && consult.consultType > 19 && consult.closeStatus == 1">
+            <i class="icon ion-ios-checkmark energized"></i>
+            <span class="">已结束</span>
           </span>
 
         </p>
@@ -69,34 +72,29 @@
         </p>
 
 
-        <!--问诊时间&进行状态&回复数-->
-        <p class="has-right">
-          <span class="small grey padding-right">{{consult.consultTime | date: "MM/dd hh:mm"}}</span>
+        <!--问诊人&时间&回复-->
+        <p class="clearfix" style="line-height:24px;">
+          <img width="24px" height="24px" class="pull-left round"
+            ng-src="{{consult.patFaceUrl||'img/default_nomale_head_photo.png'}}"
+            onerror="onProfilePicError(this)"/>
 
-          <span class="small grey" ng-if="type!='YW' && consult.closeStatus == 0">
-            <i class="icon ion-ios-clock energized"></i>
-            <span class="small">进行中</span>
-          </span>
-          <span class="small grey" ng-if="type!='YW' && consult.closeStatus == 1">
-            <i class="icon ion-ios-checkmark positive"></i>
-            <span class="small">已结束</span>
-          </span>
-          <span class="small right grey" ng-if="type!='YW'">
+          <span class="pull-left padding-left gray-c ">{{consult.patName}}</span>
+
+          <span class="pull-right right gray-c" ng-if="type!='YW'&&consult.replyCount">
             {{consult.replyCount}}
             <i class="icon ion-ios-chatbubble"></i>
           </span>
+          <span class="pull-right gray-c padding-right">{{consult.consultTime | date: "MM/dd"}}</span>
         </p>
 
         <!--抢单操作-->
-        <div class="padding-top row" ng-if="type=='YW'">
-          <button
-              class="button button-small button-full"
-              ng-class="{'button-balanced': consult.receiveStatus == 0, 'button-grey': consult.receiveStatus == 3}"
-              ng-click="snatchConsult(consult)"
-          >
-            <span ng-bind="consult.receiveStatus == 0 ? '抢单' : '已抢'"></span>
-          </button>
-        </div>
+        <button
+          ng-if="type=='YW'"
+          class="button button-full"
+          ng-class="{'button-balanced': consult.receiveStatus == 0, 'button-stable': consult.receiveStatus == 2}"
+          ng-click="snatchConsult(consult)">
+          {{consult.receiveStatus == 0 ? '抢单' : '已抢'}}
+        </button>
 
       </ion-item>
 

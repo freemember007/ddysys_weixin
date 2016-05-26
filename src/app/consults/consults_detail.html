@@ -41,11 +41,11 @@
       <p class="has-right">
         <span class="small grey padding-right">{{consult.consultTime | date: "MM/dd hh :mm"}}</span>
         <span class="small grey" ng-if="consult.closeStatus == 0">
-          <i class="icon ion-ios-clock energized"></i>
+          <i class="icon ion-ios-clock positive"></i>
           <span class="small">进行中</span>
         </span>
         <span class="small grey" ng-if="consult.closeStatus == 1">
-          <i class="icon ion-ios-checkmark positive"></i>
+          <i class="icon ion-ios-checkmark energized"></i>
           <span class="small">已完成</span>
         </span>
         <span class="small right grey" ng-if="type!='YW'">
@@ -129,7 +129,7 @@
     <ion-footer-bar class="bar-stable item-input-inset message-footer" style="background-color: #fff" keyboard-attach>
       <label class="item-input-wrapper" style="background-color:transparent;">
         <textarea ng-model="reply.content" value="" placeholder="回复这条咨询..." required minlength="1" maxlength="1500"
-                  style="border: solid 1px #ccc; width:100%;"></textarea>
+                  style="border-bottom: solid 1px #ccc; width:100%;"></textarea>
       </label>
       <div class="footer-btn-wrap">
         <button class="button button-icon icon ion-android-send footer-btn" ng-click="doReply()"

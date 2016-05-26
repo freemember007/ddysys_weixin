@@ -1,21 +1,30 @@
 <ion-view class="tabs-container" >
 
-    <ion-nav-view ></ion-nav-view>
+    <ion-nav-view overflow-scroll="true"></ion-nav-view>
+
+    <style>
+      .tab-item.active {
+        color: #73c167!important;
+      }
+      .tab-item.actived {
+        color: #888888!important;
+      }
+    </style>
 
     <!-- TABS -->
-    <div class="tabs tabs-light tabs-icon-top" style="height:48px;">
-        <a class="tab-item tab-item-positive has-badge" ui-sref-active="active" ui-sref="tab.managePatients" nav-direction="none" >
+    <div class="tabs tabs-light tabs-icon-top" style="height:48px;border-top:solid 1px #eee!important;background: #fff;">
+        <a class="tab-item tab-item-positive has-badge gray-8" ui-sref-active="active" ui-sref="tab.managePatients" nav-direction="none" >
             <span class="badge badge-assertive" ng-if="badge.home">{{badge.home}}</span>
             <i class="icon ion-ios-people-outline"></i>患者
         </a>
-        <a class="tab-item tab-item-positive has-badge" ui-sref-active="active" ui-sref="tab.consults" nav-direction="none" >
+        <a class="tab-item tab-item-positive has-badge gray-8" ui-sref-active="active" ui-sref="tab.consults" nav-direction="none" >
             <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
-            <i class="icon ion-ios-chatboxes-outline" ></i>咨询
+            <i class="icon ion-ios-chatbubble-outline" ></i>咨询
         </a>
-        <a class="tab-item tab-item-positive" ui-sref-active="active" ui-sref="tab.news" nav-direction="none">
-            <i class="icon ion-ios-paper-outline"></i>资讯
+        <a class="tab-item tab-item-positive gray-8" ui-sref-active="active" ui-sref="tab.news" nav-direction="none">
+            <i class="icon ion-ios-infinite-outline"></i>资讯
         </a>
-        <a class="tab-item tab-item-positive" ui-sref-active="active" ui-sref="tab.account" nav-direction="none">
+        <a class="tab-item tab-item-positive gray-8" ui-sref-active="active" ui-sref="tab.account" nav-direction="none">
             <i class="icon ion-ios-person-outline" ></i>我的主页
         </a>
     </div>

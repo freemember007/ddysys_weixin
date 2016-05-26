@@ -19,11 +19,14 @@
         <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求
         <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
       </a>
-      <div class="card" ng-if="!patientsGroup[0]">
-        <div class="item item-text-wrap">
+
+      <!--没有患者-->
+      <div class="" ng-if="!patientsGroup[0]">
+        <div class="item item-text-wrap gray-9">
           您还没有患者，请让患者扫您的二维码添加患者。
         </div>
       </div>
+
       <ion-list class="patients_patient_list">
         <style>
           .patients_patient_list .avatar {
@@ -37,8 +40,8 @@
         </ion-item>
         <a ng-repeat-end class="item item-icon-left" ng-repeat="patient in patients[1]" ui-sref="patients_detail({patientId: patient.patId})">
           <img class="icon padding avatar" width="52" height="52" ng-src="{{patient.faceUrl}}">
-          <span class="padding-left"></span>{{patient.hzxm}}
-          <span class="padding-left grey small">{{patient.yhxb}}&nbsp;{{patient.patAge + '岁'}}</span>
+          <span class="padding-left">{{patient.hzxm}}</span>
+          <span class="padding-left grey font-small">{{patient.yhxb}}&nbsp;{{patient.patAge + '岁'}}</span>
         </a>
       </ion-list>
 

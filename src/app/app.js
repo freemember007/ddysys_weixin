@@ -69,10 +69,13 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
   $provide.constant('apiUrl', 'http://ws.diandianys.com/app');
 
 
+  //使用原生滚动, 效率更好? 注:鼠标可复制
+  $ionicConfigProvider.scrolling.jsScrolling(false);
 
   // ios上允许swipe返回
   $ionicConfigProvider.views.swipeBackEnabled(true);
 
+  // spinner样式
   $ionicConfigProvider.spinner.icon('lines');
 
 
