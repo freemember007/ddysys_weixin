@@ -19,10 +19,6 @@
     vm.doctor = $localStorage.getObject('doctor');
     vm.doLogout = doLogout;
 
-    $scope.$on("$ionicView.enter", function () {
-      $scope.active('isTab4');
-    });
-
     function doLogout() {
       if ($localStorage.get('assistenToken')) {
         $state.go('dock');

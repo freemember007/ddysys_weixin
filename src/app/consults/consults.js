@@ -27,10 +27,7 @@ function ConsultsCtrl($scope, $rootScope, Consults, $localStorage, $state, Api, 
   $scope.setDialTime = setDialTime;
 
   // 初始化
-  $scope.setType('DS');
-  $scope.$on("$ionicView.enter", function () {
-    $scope.active('isTab2');
-  });
+  // $scope.setType('DS');
 
   function setType(type) {
     $scope.type = type;

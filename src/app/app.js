@@ -13,6 +13,8 @@ angular.module('ddysys', [
   'ddysys.controllers.messages',
   'ddysys.controllers.news',
   'ddysys.controllers.patients',
+  'ddysys.controllers.patientsDetail',
+  'ddysys.controllers.patientsRequests',
   'ddysys.controllers.register',
   'ddysys.controllers.reset_passwd',
   'ddysys.controllers.account',

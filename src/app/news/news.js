@@ -6,10 +6,6 @@ angular.module('ddysys.controllers.news', [])
 NewsCtrl.$inject = ['$scope', 'News', '$ionicListDelegate', '$timeout'];
 function NewsCtrl($scope, News, $ionicListDelegate, $timeout) {
 
-  $scope.$on("$ionicView.enter", function () {
-    $scope.active('isTab3');
-  });
-
   $scope.news = [];
 
   $scope.doRefresh = function () {
