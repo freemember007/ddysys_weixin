@@ -7,7 +7,7 @@
 
       <!--问诊人头像-->
       <img
-          ng-src="{{consult.patFaceUrl||'img/default_nomale_head_photo.png'}}"
+          ng-src="{{consult.patFaceUrl||'img/default_head.png'}}"
           onerror="onProfilePicError(this)"/>
 
       <!--问诊人&进行状态-->
@@ -104,22 +104,18 @@
     </div>
 
     <!--如果是图文问诊-->
-    <div id="text-consult" ng-if="consult.consultType < 21">
+    <ion-list id="text-consult" ng-if="consult.consultType < 21">
 
       <!--回复内容-->
-      <ion-list>
-        <a class="item item-avatar" style="background-color:#f2f2f2; " ng-repeat="reply in replies">
-          <img ng-src="{{reply.replyFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)"
+        <a class="item item-avatar" style="background-color:#f2f2f2;" ng-repeat="reply in replies">
+          <img ng-src="{{reply.replyType == 0 ? reply.replyFaceUrl||'img/default_head.png': user.dFaceUrl||'img/default_head.png'}}" onerror="onProfilePicError(this)"
                ui-sref="patients_detail({patientId:reply.patId})">
           <p style="white-space:normal">{{reply.replyName}}：{{reply.replyContent}}</p>
-          <p style="color:#999; ">{{consult.consultTime | date: "MM-dd hh:mm"}}</p>
+          <p style="color:#999; ">{{reply.replyTime | date: "MM-dd hh:mm"}}</p>
 
         </a>
-      </ion-list>
 
-      <div id="bottomAnchor"></div>
-
-    </div>
+    </ion-list>
 
 
   </ion-content>

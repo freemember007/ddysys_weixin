@@ -1,109 +1,75 @@
 angular.module('ddysys.controllers.messages', [])
   .controller('MessagesCtrl', MessagesCtrl);
 
-
 //--------- 聊天controller ---------//
 MessagesCtrl.$inject = [
   '$scope',
   '$ionicScrollDelegate',
   'Messages',
   '$stateParams',
-  '$localStorage',
   'PostData',
   '$http',
   '$ionicModal',
-  '$imageHelper',
-  '$fileHelper',
   '$timeout',
-  '$interval',
-  '$system'
+  'Api'
 ];
-function MessagesCtrl($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $timeout) {
+function MessagesCtrl($scope, $ionicScrollDelegate, Messages, $stateParams, PostData, $http, $ionicModal, $timeout, Api) {
 
-  $scope.user = $localStorage.getObject('user');
-  $scope.toUser = _.findWhere($localStorage.getObject('patients'), {
-    patId: Number($stateParams.patientId)
-  });
-  $scope.input = {};
-  $scope.input.message = $stateParams.msg || '';
+  $scope.input = {
+    message: $stateParams.msg || ''
+  };
+  $scope.sendMessage = sendMessage;
+  $scope.sendImage = sendImage;
+  $scope.loadMore = loadMore;
   var page = 1;
-  var messages = [];
+  $scope.messages = [];
+
+
+  //初始化
+  queryMsg(true);
 
   //加载消息
   function queryMsg(isFirst) {
     if (isFirst) page = 1;
     Messages.query($stateParams.patientId, page).then(function (data) {
       if (!data) return;
-      var list = _.sortBy(data.list, 'sentTime');
-      _.map(list, function (message) {
-        if (message.msgType === 'P') {
-
-        } else if (message.msgType === 'A') {
-        }
-      });
+      var list = data.list;
       if (isFirst) {
-        messages = list;
-        $timeout(scrollBottom, 300);
+        $scope.messages = list;
+        $timeout(scrollBottom, 500);
       } else {
-        messages = list.concat(messages);
+        $scope.messages = list.concat(messages);
         $scope.$broadcast('scroll.refreshComplete');
       }
-      $scope.messages = messages;
       page++;
     });
   }
 
-  function scrollBottom() {
-    $ionicScrollDelegate.$getByHandle('main').scrollBottom(true);
-  }
-
-  queryMsg(true);
-
   //加载消息历史
-  $scope.loadMore = function () {
+  function loadMore() {
     queryMsg(false);
-  };
-
-  // 放大图片
-
-  $scope.zoomViewModal = $ionicModal.fromTemplate(templates['src/app/templates/zoom_view.html'], {
-    scope: $scope,
-    animation: 'slide-in-up'
-  });
-  $scope.showZoomView = function(imageUrl) {
-    $scope.ngSrc = imageUrl;
-    $scope.zoomViewModal.show();
   }
 
-  $scope.closeZoomView = function() {
-    $scope.zoomViewModal.hide();
+  //滚动到底部
+  function scrollBottom() {
+    $ionicScrollDelegate.$getByHandle('main').scrollBottom(false);
   }
-
-  $scope.$on('$destroy', function() {
-    $scope.zoomViewModal.remove();
-  });
-
 
   // 发图片
-  $scope.uploadImage = function () {
-    $imageHelper.choose(function (status) {
-      $imageHelper.getImage(status, function (imageUrl) {
-        $fileHelper.upload(imageUrl, {
-          service: 'appuploadimg',
-          type: '6'
-        }, function (res) {
-          if (res && res.filePath) {
-            $scope.sendMessage('P', res.filePath);
-          }
-        })
-      })
-    })
+  function sendImage(that) {
+    var file = that.files[0];
+    var params = {
+      file: file,
+      type: '6'
+    };
+    Api.upload('appuploadfile', params, function (resp) {
+      var imageUrl = resp.data.filePath;
+      $scope.sendMessage('P', imageUrl);
+    });
   }
-
-
-
+  
   // 发消息
-  $scope.sendMessage = function (type, content) {
+  function sendMessage(type, content) {
     var postData = new PostData('appsendmessage');
     postData.patId = $stateParams.patientId;
     postData.msgType = type || 'T';
@@ -114,5 +80,23 @@ function MessagesCtrl($scope, $ionicScrollDelegate, Messages, $stateParams, $loc
       queryMsg(true);
     })
   }
+
+  // 放大图片
+  $scope.zoomViewModal = $ionicModal.fromTemplate(templates['src/app/templates/zoom_view.html'], {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+  $scope.showZoomView = function(imageUrl) {
+    $scope.ngSrc = imageUrl;
+    $scope.zoomViewModal.show();
+  };
+
+  $scope.closeZoomView = function() {
+    $scope.zoomViewModal.hide();
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.zoomViewModal.remove();
+  });
 
 }

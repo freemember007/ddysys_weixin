@@ -11,8 +11,8 @@
     .controller('AccountModpwdCtrl', AccountModpwdCtrl);
 
   //我的Ctrl
-  AccountCtrl.$inject = ['$scope', '$state', '$localStorage', 'PostData', '$http', '$ionicHistory'];
-  function AccountCtrl($scope, $state, $localStorage, PostData, $http, $ionicHistory) {
+  AccountCtrl.$inject = ['$scope', '$state', '$localStorage', 'PostData', '$http', '$ionicHistory', 'Api'];
+  function AccountCtrl($scope, $state, $localStorage, PostData, $http, $ionicHistory, Api) {
 
     $scope.user = $localStorage.getObject('user');
     $scope.doctor = $localStorage.getObject('doctor');
@@ -112,38 +112,27 @@
   }
 
   // 个人资料Ctrl
-  AccountInfoCtrl.$inject = ['$scope', '$state', '$http', 'PostData', '$localStorage', '$imageHelper', '$fileHelper', '$system'];
-  function AccountInfoCtrl($scope, $state, $http, PostData, $localStorage, $imageHelper, $fileHelper, $system) {
+  AccountInfoCtrl.$inject = ['$scope', '$localStorage', 'Api'];
+  function AccountInfoCtrl($scope, $localStorage, Api ) {
 
     $scope.user = $localStorage.getObject('user');
-
     $scope.doctor = $localStorage.getObject('doctor');
+    $scope.modifyAvatar = modifyAvatar;
 
-    $scope.uploadAvatar = function () {
-      $imageHelper.choose(function (status) {
-        $imageHelper.getImage(status, function (imageURL) {
-          $fileHelper.upload(imageURL, {service: 'appuploadimg', type: '1'}, function (res) {
-            if (res && res.filePath) {
-              $scope.user.dFaceUrl = res.filePath;
-              submit($scope.user.dFaceUrl);
-            }
-          })
-        }, true)
-      })
-    };
-
-    function submit(imgUrl) {
-      var postData = new PostData('appmodperinfo');
-      postData.type = '1';
-      postData.did = $localStorage.getObject('user').did;
-      postData.faceUrl = imgUrl;
-
-      $http.post('api', postData).then(function (data) {
-        if (data && data.succ) {
-          $system.toast('头像上传成功！');
-          $localStorage.setObject('user', data.docInfo);
-        }
-      })
+    function modifyAvatar(that) {
+      var file = that.files[0];
+      var params = {
+        file: file,
+        type: '1'
+      };
+      Api.upload('appuploadfile', params, function (resp) {
+        var faceUrl = resp.data.filePath;
+        Api.post('appmodperinfo', {faceUrl: faceUrl}).then(function(data){
+          console.log(data.docInfo.dFaceUrl);
+          $scope.doctor.dFaceUrl = data.docInfo.dFaceUrl;
+          $localStorage.setObject('doctor', $scope.doctor);
+        })
+      });
     }
 
   }

@@ -2,8 +2,8 @@ angular.module('ddysys.controllers.patients', [])
   .controller('PatientsCtrl', PatientsCtrl);
 
 
-PatientsCtrl.$inject = ['$scope', 'Patients', 'badge', '$rootScope', '$localStorage'];
-function PatientsCtrl($scope, Patients, badge, $rootScope, $localStorage) {
+PatientsCtrl.$inject = ['$scope', 'Patients', 'badge', '$rootScope'];
+function PatientsCtrl($scope, Patients, badge, $rootScope) {
 
   $rootScope.refreshPatients = $scope.refresh; //todo:此方法较丑陋，后续应改成服务。
   $scope.refresh = refresh;
@@ -26,13 +26,6 @@ function PatientsCtrl($scope, Patients, badge, $rootScope, $localStorage) {
 
   function sortList(list){
     list = _.where(list, {status: "1"});
-    _.each(list, function(element){
-        if(element.yhxb === '男'){
-          element.faceUrl = element.faceUrl || 'img/default_male_head_photo1.png';
-        } else {
-          element.faceUrl = element.faceUrl || 'img/default_female_head_photo1.png';
-        }
-    });
     list = _.groupBy(list, function(item){
       return item.star;
     });

@@ -19,12 +19,16 @@
       </div>
     </div>
     <div class="list">
-      <a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">
-        <img class='round' ng-src="{{userMessage.patFaceUrl}}">
-        <span class="badge badge-assertive bold" ng-if="userMessage.unreadCount">{{userMessage.unreadCount}}</span>
-        <span class="font-normal">{{userMessage.patName}}</span>
+      <a class="item item-avatar" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">
+        <img class='round ' ng-src="{{userMessage.patFaceUrl||'img/default_head.png'}}">
+        <span class="badge badge-assertive bold pull-left"
+              style="left:45px; right:auto; line-height:16px; min-width:10px; font-size:12px; padding:1px 6px"
+              ng-if="userMessage.unreadCount">{{userMessage.unreadCount}}</span>
+        <span class="font-normal has-badge">{{userMessage.patName}}</span>
         <span class="pull-right font-small gray-c">{{userMessage.sentTime | date: 'MM-dd HH:mm'}}</span>
-        <p class="font-small gray-8 line-normal" style="padding-top: 5px">{{userMessage.msgContent}}</p>
+
+        <p class="font-small gray-8 line-normal" style="padding-top: 5px">{{userMessage.msgContent}}
+        </p>
       </a>
     </div>
   </ion-content>

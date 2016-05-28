@@ -2,7 +2,7 @@
   <ion-content style="background-color: #eee">
 
     <a class="item item-avatar" href="#">
-      <img ng-src="{{patient.faceUrl}}">
+      <img ng-src="{{patient.faceUrl||'img/default_head.png'}}">
       <span>{{patient.hzxm}}</span>&nbsp;&nbsp;<span>{{patient.yhxb}}</span>&nbsp;&nbsp;<span>{{patient.patAge}}岁</span>
       <p>{{patient.groupName}}</p>
     </a>

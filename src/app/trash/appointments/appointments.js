@@ -12,7 +12,6 @@ function AppointmentsCtrl($scope, $rootScope, Appointments, $localStorage) {
 
   $scope.setType = function (type) {
     $scope.type = type;
-    $rootScope.consultType = $scope.type;
     Appointments.all(type).then(function (data) {
       if (!data) return;
       $scope.appointments = data.list;

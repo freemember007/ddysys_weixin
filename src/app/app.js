@@ -20,6 +20,7 @@ angular.module('ddysys', [
   'ddysys.controllers.account',
   'ddysys.controllers.appointments',
   'ddysys.controllers.consults',
+  'ddysys.controllers.consultsDetail',
   'ddysys.controllers.events'
 ])
   .run(run)
@@ -37,6 +38,7 @@ function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $
         template: '加载中...',
         noBackdrop: true,
         hideOnStateChange: true,
+        delay: 300,
         duration: 5000
       });
     });
@@ -361,5 +363,5 @@ angular.module('ddysys.controllers', []);
 Bmob.initialize("53458196b17f709cb6ff67247378a905", "49e3180d2d344c35e4e8a54ec4e72ec6");
 // onerror
 function onProfilePicError(ele) {
-  ele.src = 'img/default_nomale_head_photo.png'
+  ele.src = 'img/default_head.png'
 }

@@ -3,7 +3,7 @@
   <ion-content>
 
     <ion-item class="item-avatar" type="item-text-wrap">
-      <img ng-src="{{appointment.patFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" ui-sref="patients_detail({patientId:appointment.patId})">
+      <img ng-src="{{appointment.patFaceUrl||'img/default_head.png'}}" onerror="onProfilePicError(this)" ui-sref="patients_detail({patientId:appointment.patId})">
       <div class="row" style="padding:0px">
         <div class="col" style="padding:0px"><span>{{appointment.patName}}</span></div>
       </div>

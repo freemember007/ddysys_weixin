@@ -4,10 +4,14 @@
 
     <div class="list">
 
-      <a class="item item-icon-right" style="margin-top:20px;" ng-click="uploadAvatar()">
+      <input class="hide" id="avatarInput" type="file" accept="image/*" onchange="angular.element(this).scope().modifyAvatar(this)"/>
+      <a class="item item-icon-right" style="margin-top:20px;">
         <i class="icon"></i> 头像
         <span class="icon icon-accessory" >
-          <img style="border-radius:50%" ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" width="40" height="40"> &nbsp;
+          <img style="border-radius:50%" width="40" height="40"
+               ng-src="{{doctor.dFaceUrl||'img/default_head.png'}}"
+               onerror="onProfilePicError(this)"
+               onclick="document.getElementById('avatarInput').click()">
         </span>
       </a>
 

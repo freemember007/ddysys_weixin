@@ -37,7 +37,7 @@
     <ion-list>
 
       <ion-item class="item-avatar item-icon-right" ng-repeat="appointment in appointments" type="item-text-wrap" ui-sref="appointments_detail({appointmentId:appointment.plusId})" >
-        <img ng-src="{{appointment.patFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)">
+        <img ng-src="{{appointment.patFaceUrl||'img/default_head.png'}}" onerror="onProfilePicError(this)">
         <div class="row" style="padding:0px">
           <div class="col" style="padding:0px"><span>{{formatDate(appointment.plusTime)}} {{appointment.ampm === "1" ? "上午" : "下午"}}</span><span class="small" ng-class="formatPStatus(appointment.pStatus).class" style="position:absolute; right:40px">{{formatPStatus(appointment.pStatus).text}}
           </div>

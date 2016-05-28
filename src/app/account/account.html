@@ -1,14 +1,18 @@
 <ion-view view-title="我" hide-back-button="true" cache-view="false">
 
-  <ion-content class="light-bg" style="bottom:48px">
+  <ion-content class="light-bg" style="bottom:48px;">
 
-    <div class="tc" style="height:210px; padding:30px; background:#73c167;">
-      <img style="border-radius:50%" width="80" height="80" ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)">
+    <div class="tc" style="height:220px; padding:30px; background:#73c167;">
+      <img style="border-radius:50%"
+           width="80" height="80"
+           ng-src="{{doctor.dFaceUrl||'img/default_head.png'}}"
+           onerror="onProfilePicError(this)"
+           >
       <h4 class="light">{{doctor.dName}}</h4>
       <p class="light font-normal">{{doctor.hosName + "&nbsp;" + doctor.yszc}}</p>
     </div>
 
-    <div class="row tc" style="height:80px; background-color:#fff">
+    <div class="row tc" style="background-color:#fff;border-bottom:1px solid #eee;">
       <div class="col gray-6" style="border-right:1px solid #eee; padding:0; margin:10px" ui-sref="account_rate">
         <img height="30px" src="img/Evaluation.png">
         <p>患者评价</p>
@@ -23,10 +27,7 @@
       </div>
     </div>
 
-    <!-- 分割区 sdf-->
-    <div style="height:20px; border-top:1px solid #ddd;"></div>
-
-    <div class="list gray-4">
+    <div class="list gray-4" style="margin-top:10px">
       <a class="item item-icon-left item-icon-right" ui-sref="account_info">
         <i class="icon ion-ios-person-outline"></i> 个人资料
         <i class="icon ion-chevron-right icon-accessory"></i>
@@ -41,7 +42,7 @@
       </a>
     </div>
 
-    <button class="button button-block button-assertive" ng-click="doLogout()">
+    <button class="button button-full button-assertive" ng-click="doLogout()">
       退出当前帐户
     </button>
 

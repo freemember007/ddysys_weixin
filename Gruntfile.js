@@ -9,7 +9,13 @@ module.exports = function (grunt) {
       build: {
         files: {
           'build/js/app.js': ['src/**/*.js', '!src/lib/*.js', '!src/trash/**/*.js'],
-          'build/js/lib.js': ['src/lib/*.js']
+          'build/js/lib.js': [
+            'bower_components/ionic/release/js/ionic.bundle.js',
+            'bower_components/underscore/underscore.js',
+            'bower_components/ng-file-upload/ng-file-upload.js',
+            'src/lib/bmob-min.js',
+            'src/lib/moment-with-locales.js'
+          ]
         }
       }
     },
@@ -115,7 +121,7 @@ module.exports = function (grunt) {
     },
     watch: {
       concat: {
-        files: ['src/**/*.js'],
+        files: ['src/**/*.js', 'bower_component/**/*.js'],
         tasks: ['concat']
       },
       sass: {

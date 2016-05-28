@@ -2,16 +2,14 @@ angular.module('ddysys.controllers.managePatients', [])
   .controller('ManagePatientsCtrl', ManagePatientsCtrl);
 
 
-ManagePatientsCtrl.$inject = ['$scope', '$rootScope', '$localStorage', 'PostData', '$http', 'badge', '$system'];
-function ManagePatientsCtrl($scope, $rootScope, $localStorage, PostData, $http, badge, $system) {
+ManagePatientsCtrl.$inject = ['$scope', '$rootScope', '$localStorage', 'PostData', '$http', 'badge'];
+function ManagePatientsCtrl($scope, $rootScope, $localStorage, PostData, $http, badge) {
 
   $scope.$on("$ionicView.enter", function () {
     $scope.user = $localStorage.getObject('user'); //需要实时，因为可能被修改，如头像
   });
 
-  $scope.docSchedules = $localStorage.getObject('docSchedules') || [];
   $scope.userMessages = $localStorage.getObject('userMessages') || [];
-  $scope.userMessages = [];
   $scope.init = init;
   $rootScope.initHome = $scope.init;
   $scope.changeBadge = changeBadge;
@@ -21,7 +19,6 @@ function ManagePatientsCtrl($scope, $rootScope, $localStorage, PostData, $http, 
     $http.post('api', postData).then(function (data) {
       $scope.$broadcast('scroll.refreshComplete');
       if (!data) return;
-      $scope.docSchedules = data.dsList.slice(0, 2);
       _.map(data.umList, function (item) {
         if (item.msgType === 'P') {
           item.msgContent = '[图片]';
@@ -30,10 +27,8 @@ function ManagePatientsCtrl($scope, $rootScope, $localStorage, PostData, $http, 
         }
       });
       $scope.userMessages = data.umList;
-      $localStorage.setObject('docSchedules', $scope.docSchedules || []);
       $localStorage.setObject('userMessages', $scope.userMessages || []);
-      badge.set('home', data.yyys.messageCount);
-      badge.set('patients', data.yyys.applyCount);
+      badge.set('home', data.yyys.messageCount + data.yyys.applyCount);
     })
   }
 
