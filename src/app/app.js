@@ -38,7 +38,7 @@ function run($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage, $
         template: '加载中...',
         noBackdrop: true,
         hideOnStateChange: true,
-        delay: 300,
+        delay: 100,
         duration: 5000
       });
     });

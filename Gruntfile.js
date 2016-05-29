@@ -96,6 +96,7 @@ module.exports = function (grunt) {
         ]
       }
     },
+
     connect: {
       options: {
         port: 9000,
@@ -119,6 +120,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     watch: {
       concat: {
         files: ['src/**/*.js', 'bower_component/**/*.js'],
@@ -133,7 +135,7 @@ module.exports = function (grunt) {
         tasks: ['html2js']
       },
       copy: {
-        files: ['src/index.html', 'src/fonts/*.*', 'src/img/*.*'],
+        files: ['src/index.html', 'src/{fonts,img}/*.*'],
         tasks: ['copy']
       },
       livereload: {
@@ -169,7 +171,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('build', ['concat', 'sass', 'html2js', 'copy:build',  'connect:build', 'watch']);
+  grunt.registerTask('build', ['copy:build', 'concat', 'sass', 'html2js', 'connect:build', 'watch']);
   // 注意:此任务执行的前提是build任务执行
   grunt.registerTask('release', ['copy:release', 'uglify', 'cssmin', 'cacheBust', 'connect:release', 'watch']);
 

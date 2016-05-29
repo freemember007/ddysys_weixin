@@ -8,7 +8,7 @@ function Consults(PostData, $http, $localStorage) {
   return {
     all: function (type) {
       var postData = new PostData('appconsultlist');
-      postData.limit = 30; //todo:后续要加分页
+      postData.limit = 10; //todo:后续要加分页
       postData.type = type;
       // postData.deptCode = $localStorage.getObject('doctor').deptCode;
       return $http.post('api', postData);
