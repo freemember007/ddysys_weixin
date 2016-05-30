@@ -64,7 +64,6 @@ function Interceptor($rootScope, $location, apiUrl) {
       console.log('------/\n\n\n');
       if (config.url === 'api') {
         $rootScope.$broadcast('loading:show');
-        // NProgress.start();
         config.url = apiUrl;
       }
       return config;
@@ -72,13 +71,11 @@ function Interceptor($rootScope, $location, apiUrl) {
 
     'requestError': function (rejection) {
       $rootScope.$broadcast('loading:hide');
-      // NProgress.done();
       $rootScope.$broadcast('alert', {msg: '请求错误：' + rejection, code: 10001});
     },
 
     'response': function (res) {
       $rootScope.$broadcast('loading:hide');
-      // NProgress.done();
       var data = res.data;
       console.log('/---响应\n');
       console.log(data);
@@ -98,7 +95,6 @@ function Interceptor($rootScope, $location, apiUrl) {
 
     'responseError': function (res) { //处理HTTP错误
       $rootScope.$broadcast('loading:hide');
-      // NProgress.done();
       var status = res.status;
       if (status < 1) {
         $rootScope.$broadcast('alert', {msg: '网络连接异常！请检查您的网络连接！', code: status});
