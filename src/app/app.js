@@ -21,7 +21,9 @@ angular.module('ddysys', [
   'ddysys.controllers.appointments',
   'ddysys.controllers.consults',
   'ddysys.controllers.consultsDetail',
-  'ddysys.controllers.events'
+  'ddysys.controllers.events',
+  'ddysys.controllers.articles',
+  'ddysys.controllers.articleDetail'
 ])
   .run(run)
   .config(config);
@@ -293,6 +295,18 @@ function config($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvid
       url: '/account_modpwd',
       template: templates['src/app/account/account_modpwd.html'],
       controller: 'AccountModpwdCtrl'
+    })
+
+    .state('articles', {
+      url: '/articles',
+      template: templates['src/app/articles/articles.html'],
+      controller: 'ArticlesCtrl'
+    })
+
+    .state('article_detail', {
+      url: '/article/:articleId',
+      template: templates['src/app/articles/article_detail.html'],
+      controller: 'ArticleDetailCtrl'
     })
 
 

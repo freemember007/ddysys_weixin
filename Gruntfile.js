@@ -14,7 +14,8 @@ module.exports = function (grunt) {
             'bower_components/underscore/underscore.js',
             'bower_components/ng-file-upload/ng-file-upload.js',
             'src/lib/bmob-min.js',
-            'src/lib/moment-with-locales.js'
+            'src/lib/moment-with-locales.js',
+            'src/lib/jweixin-1.0.0.js'
           ]
         }
       }
@@ -99,7 +100,7 @@ module.exports = function (grunt) {
 
     connect: {
       options: {
-        port: 9000,
+        port: 9001,
         hostname: '*',
         livereload: 35729
       },

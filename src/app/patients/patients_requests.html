@@ -10,7 +10,7 @@
     <ion-list>
 
       <a class="item item-icon-left item-icon-right" ng-repeat="patient in patients" ui-sref="patients_requests_detail({patientId: patient.patId})">
-        <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.patAge}}岁
+        <img class="icon padding round" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.patAge}}岁
         <i class="icon ion-chevron-right icon-accessory"></i>
       </a>
 

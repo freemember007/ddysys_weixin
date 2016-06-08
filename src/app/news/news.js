@@ -43,22 +43,24 @@ function NewsCtrl($scope, News, $ionicListDelegate, $timeout) {
     }, function (data) {
       alert("查询失败: " + data);
     });
-  }
+  };
 
   $scope.moreDataCanBeLoaded = function () {
     return News.param.hasmore;
-  }
+  };
 
   $ionicListDelegate.showReorder(true);
 
 }
 
 
-NewsDetailCtrl.$inject = ['$scope', '$ionicLoading', '$stateParams', '$sce'];
-function NewsDetailCtrl($scope, $ionicLoading, $stateParams, $sce) {
+NewsDetailCtrl.$inject = ['$scope', '$ionicLoading', '$stateParams', '$sce', 'Api', '$ionicPopup', '$state'];
+function NewsDetailCtrl($scope, $ionicLoading, $stateParams, $sce, Api, $ionicPopup, $state) {
 
   $scope.title = $stateParams.title;
-  // console.log($scope.title)
+  $scope.contentString = '';
+  // $scope.content = {};
+  $scope.transship  = transship;
 
   $ionicLoading.show({
     template: '加载中...',
@@ -74,6 +76,7 @@ function NewsDetailCtrl($scope, $ionicLoading, $stateParams, $sce) {
     "objectId": id
   }, {
     success: function (result) {
+      $scope.contentString = result;
       $scope.content = $sce.trustAsHtml(result);
       $ionicLoading.hide()
     },
@@ -81,5 +84,21 @@ function NewsDetailCtrl($scope, $ionicLoading, $stateParams, $sce) {
       alert(error);
       $ionicLoading.hide()
     }
-  })
+  });
+
+  function transship() {
+    var ghPic = $scope.contentString.match(/http.*?(jpg|gif|png|bmp)/);
+    Api.post('appadddocarticle',{
+      ghArticleTitle: '[转载]' + $scope.title,
+      ghArticleContent: $scope.contentString,
+      ghPic: ghPic && ghPic[0]
+    }).then(function (data) {
+      $ionicPopup.alert({
+        title: '提示',
+        template: '转载成功!将跳转到转载后的文章,请点击微信右上角"..."进行分享。'
+      }).then(function (res) {
+        $state.go('article_detail', {articleId: data.obj.ghArticleId});
+      });
+    })
+  }
 }
