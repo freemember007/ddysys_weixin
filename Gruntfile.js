@@ -174,6 +174,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', ['copy:build', 'concat', 'sass', 'html2js', 'connect:build', 'watch']);
   // 注意:此任务执行的前提是build任务执行
-  grunt.registerTask('release', ['copy:release', 'uglify', 'cssmin', 'cacheBust', 'connect:release', 'watch']);
+  grunt.registerTask('release', ['copy:release', 'uglify', 'cssmin', 'cacheBust']);
 
 };

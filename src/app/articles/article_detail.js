@@ -17,47 +17,54 @@ function ArticleDetailCtrl($scope, Api, $stateParams, $sce, $localStorage) {
     $scope.article.subTitle = '时间:'+ $scope.article.ghArticleTime + ' 阅读量:'+ $scope.article.ghArticleCount;
     $scope.article.content = $sce.trustAsHtml(data.info.ghArticleContent);
 
-    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-      window.shareData = {
-        "timeLineLink": "http://localhost:3000/docArticle/" + $scope.article.ghArticleId,
-        "sendFriendLink": "http://localhost:3000/docArticle/" + $scope.article.ghArticleId,
-        "tTitle": $scope.article.title,
-        "tContent": $scope.article.title,
-        "fTitle": $scope.article.title,
-        "fContent": $scope.article.title,
-        "wContent": $scope.article.title
-      };
-      // 发送给好友
-      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-        WeixinJSBridge.invoke('sendAppMessage', {
-          "img_url": "http://su.bdimg.com/static/superplus/img/logo_white.png",
-          "img_width": "401",
-          "img_height": "275",
-          "link": window.shareData.sendFriendLink,
-          "desc": window.shareData.fContent,
-          "title": window.shareData.fTitle
-        }, function (res) {
-          _report('send_msg', res.err_msg);
-        })
-      });
-      // 分享到朋友圈
-      WeixinJSBridge.on('menu:share:timeline', function (argv) {
-        WeixinJSBridge.invoke('shareTimeline', {
-          "img_url": "http://su.bdimg.com/static/superplus/img/logo_white.png",
-          "img_width": "401",
-          "img_height": "275",
-          "link": window.shareData.timeLineLink,
-          "desc": window.shareData.tContent,
-          "title": window.shareData.tTitle
-        }, function (res) {
-          _report('timeline', res.err_msg);
+    Api.post('getjssdkconf',{
+      hosId:157510
+    }).success(function(data){
+      wx.config(data);
+      wx.ready(function(){
+        wx.onMenuShareTimeline({
+          title: $scope.article.title,
+          link: 'http://mp.teyangsoft.com/ddysys/#/article/' + currentUser.openid, // 分享链接
+          imgUrl: 'http://mp.teyangsoft.com/HTML/'+$scope.src, // 分享图标
+          success: function() {
+            // 用户确认分享后执行的回调函数
+            wxApi.http_request('qunfa', {
+              hosId:157510,
+              openid:currentUser.openid
+            }).success(function(data) {
+              console.log(data);
+            });
+          },
+          cancel: function() {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: $scope.article.title,
+          desc: "我刚刚完成中医体质测试，挺准的，你也来测测吧", // 分享描述
+          link: 'http://mp.teyangsoft.com/share.php?openid='+currentUser.openid, // 分享链接
+          imgUrl: 'http://mp.teyangsoft.com/HTML/'+$scope.src, // 分享图标
+          type: 'link', // 分享类型,music、video或link，不填默认为link
+          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            wxApi.http_request('qunfa', {
+              hosId:157510,
+              openid:currentUser.openid
+            }).success(function(data) {
+              console.log(data);
+            });
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+
+          }
         });
       });
-
-    }, false)
+    });
 
   });
-
-
 
 }
