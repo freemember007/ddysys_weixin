@@ -1,0 +1,12 @@
+<ion-view hide-back-button="true" view-title="医生文章">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="article in articles" ui-sref="article_detail({articleId:article.ghArticleId})">
+                <h2>{{article.ghArticleTitle}}</h2>
+                <p style="color:#999; margin-top:10px" ng-bind="'时间:'+ article.ghArticleTime + ' 阅读量:'+ article.ghArticleCount ">
+
+                </p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

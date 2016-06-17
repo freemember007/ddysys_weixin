@@ -1,0 +1,81 @@
+<ion-view view-title="医生文章">
+  <style>
+    .docInfo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      margin: 10px;
+      box-sizing: border-box;
+      border: 1px solid #eee;
+      clear: both;
+    }
+    .docInfo .avatar {
+      float: left;
+      border-radius: 50%;
+    }
+    .docInfo .left {
+      float: left;
+      margin-left: 5px;
+    }
+    .left .name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .left .title {
+      font-size: 16px;
+      color: #999999;
+    }
+    .left .dept {
+      font-size: 16px;
+      color: #999999;
+    }
+    .left .button {
+      float: right;
+      padding: 5px;
+      background: #73c167;
+      font-size: 16px;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+    .docInfo h2 {
+      position: fixed;
+      top: 90px;
+    }
+    .barcode {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <div class="docInfo">
+    <img class="avatar"　width="50" height="50" src="{{doctor.dFaceUrl}}">
+    <div class="left">
+      <p>
+        <span class="name">{{doctor.ysxm}}</span>
+        <span class="title">{{doctor.yszc}}</span>
+        <span class="button" ui-sref="tab.account"> 了解更多</span>
+      </p>
+      <p>
+        <span class="hos">{{doctor.hosName}}</span>
+        <span class="dept">{{doctor.deptName}}</span>
+      </p>
+    </div>
+
+  </div>
+  <ion-content style="top:110px">
+
+    <div style="padding: 10px; text-align: center; font-size:20px; line-height:30px">
+      {{article.title}}
+    </div>
+    <p style="color:#999; margin-top:10px; text-align: center">
+      {{article.subTitle}}
+    </p>
+    <div style="padding: 10px; font-size:16px; line-height: 1.5;" data-ng-bind-html="article.content">
+      
+    </div>
+    <img class="barcode" width="80%" src="{{doctor.qrcodeUrl}}">
+  </ion-content>
+
+
+</ion-view>
